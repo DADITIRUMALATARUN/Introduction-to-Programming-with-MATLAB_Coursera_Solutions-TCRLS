@@ -1,0 +1,31 @@
+****************************** Simple Encryption ******************************
+function encoded = caesar(str,n)
+strascii=double(str);
+temp=strascii+n;
+for i=1:numel(temp)
+    while (temp(i)>126||temp(i)<32)
+        if temp(i)>126
+            diff=temp(i)-126;
+            temp(i)=31+diff;
+        else
+            diff=32-temp(i);
+            temp(i)=127-diff;
+        end
+    end
+    cipher(i)=temp(i);
+end
+encoded=char(cipher);
+
+
+
+****************************** Sparse Matrix ******************************
+function matrix = sparse2matrix(cellvec)
+sizecell=numel(cellvec);
+default = cellvec{1,2}*ones(cellvec{1,1}(1,:));
+for i=3:sizecell
+    row=cellvec{1,i}(1);
+    col=cellvec{1,i}(2);
+    val=cellvec{1,i}(3);
+    default(row,col)=val;
+end
+matrix=default;

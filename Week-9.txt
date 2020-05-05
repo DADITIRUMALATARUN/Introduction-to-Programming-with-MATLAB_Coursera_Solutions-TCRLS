@@ -1,0 +1,109 @@
+****************************** Excel File I/O ******************************
+function distance = get_distance(city1,city2)
+[num,text]=xlsread('Distances.xlsx');
+row=-1;
+column=-1;
+rowcity=text(1,:);
+columncity=text(:,1);
+for i=2:numel(rowcity)
+    if strcmpi(city1,rowcity(i))
+        row=i;
+    else
+        continue;
+    end
+end
+for i=2:numel(columncity)
+    if strcmpi(city2,columncity(i))
+        column=i;
+    else
+        continue;
+    end
+end
+if row==-1||column==-1
+    distance=-1;
+else
+    distance=num(row-1,column-1);
+end
+
+
+
+****************************** Text File I/O ******************************
+function charnum = char_counter(fname,ch)
+fid=fopen(fname,'rt');
+if fid<0
+    charnum=-1;
+    return;
+end
+oneline = fgets(fid);
+str=[oneline];
+while ischar(oneline)
+    oneline=fgets(fid);
+    str=[str oneline];
+end
+count = 0;
+if (ischar(ch))
+    for i=1:numel(str)
+        if ch==str(i)
+            count=count+1;
+        else
+            continue;
+        end
+    end
+    charnum=count;
+else
+    charnum = -1;
+end
+
+
+
+****************************** Saddle Points ******************************
+function indices = saddle(M)
+indices=[];
+[row,col]=size(M);
+for i=1:col
+    for j=1:row
+        minM=min(M(:,i));  
+        maxM=max(M(j,:));  
+        if M(j,i)==minM && minM==maxM 
+            indices=[indices;j i];
+        end
+    end
+end
+
+
+
+****************************** Image blur ******************************
+function output = blur(img,w)
+    [r c]=size(img);
+    A=(ones((r+2*w),(c+2*w)))*300;
+    A(w+1:w+r,w+1:w+c)=img;
+    S=(A<300).*A;
+    for i=w+1:w+r
+        for j=w+1:w+c
+            dig=0;
+            output((i-w),(j-w))=(sum(sum(S(i-w:i+w,j-w:j+w))));
+            dig=sum(sum(A(i-w:i+w,j-w:j+w)<270));
+            output((i-w),(j-w))=output((i-w),(j-w))/dig;
+        end
+    end
+    output=uint8(output);
+
+
+
+****************************** Echo Generator ******************************
+function output = echo_gen(input, fs, delay, amp)
+samples=round(fs*delay);
+if samples>0
+    x=zeros(samples,1);
+else
+    x=[];
+end
+y=amp*input;
+echo=[x ; y];
+n=[input ; x];
+w = n+echo;
+if max(w)>1
+    output=w/max(w);
+else
+    output=w;
+end

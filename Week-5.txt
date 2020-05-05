@@ -1,0 +1,10 @@
+****************************** Minimum and Maximum ******************************
+function [mmr mmm] = minimax(M)
+mmr=max(M')-min(M')
+mmm=max(max(M))-min(min(M))
+
+
+
+****************************** Matrix Construction ******************************
+function M=trio(n,m)
+M=[ones(n,m);2*ones(n,m);3*ones(n,m)]

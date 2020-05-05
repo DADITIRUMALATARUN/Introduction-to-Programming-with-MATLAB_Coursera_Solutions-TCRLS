@@ -1,0 +1,85 @@
+****************************** Practice if-statements ******************************
+function out = picker(condition,in1,in2)
+if condition>0
+    out=in1
+else
+    out=in2
+end
+
+
+
+****************************** More Practice ******************************
+function admit = eligible(v,q)
+avg=(v+q)/2;
+if avg>=92&&v>88&&q>88
+    admit=1>0
+else
+    admit=0>1
+end
+
+
+
+****************************** Variable Number of Input Arguments ******************************
+function too_young = under_age(age,limit)
+if nargin==1
+    limit=21;
+end
+if age<limit
+    too_young=1>0
+else
+    too_young=1<0
+end
+
+
+
+****************************** Lesson 5 Wrap-up ******************************
+function valid = valid_date(y,m,d)
+if ~isscalar(y)||~isscalar(m)||~isscalar(d)
+    valid=1<0
+else
+   if m>=1&&m<=12
+       if m==1||m==3||m==5||m==7||m==8||m==10||m==12
+           if d>=1&&d<=31
+               valid=1>0
+           else
+               valid=1<0
+           end
+       elseif m==4||m==6||m==9||m==11
+           if d>=1&&d<=30
+               valid=1>0
+           else
+               valid=1<0
+           end
+       else
+           if rem(y,100)==0
+               if rem(y,400)==0
+                   if d>=1&&d<=29
+                       valid=1>0
+                   else
+                       valid=1<0
+                   end
+               else
+                   if d>=1&&d<=28
+                       valid=1>0
+                   else
+                       valid=1<0
+                   end
+               end
+           elseif rem(y,4)==0
+               if d>=1&&d<=29
+                   valid=1>0
+               else
+                   valid=1<0
+               end
+           else
+               if d>=1&&d<=28
+                   valid=1>0
+               else
+                   valid=1<0
+               end
+           end
+       end
+   else
+       valid=1<0
+   end
+end

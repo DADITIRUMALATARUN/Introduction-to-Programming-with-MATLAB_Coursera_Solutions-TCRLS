@@ -1,0 +1,18 @@
+****************************** A Simple Function ******************************
+function area=tri_area(b,h)
+area=0.5*b*h
+
+
+
+****************************** Corner Case ******************************
+function [top_left top_right bottom_left bottom_right] = corners(A)
+top_left=A(1,1)
+top_right=A(1,end)
+bottom_left=A(end,1)
+bottom_right=A(end,end)
+
+
+
+****************************** Taxi Fare ******************************
+function fare=taxi_fare(d,t)
+fare=5+(2*(ceil(d)-1))+(0.25*ceil(t))
